@@ -1,0 +1,11 @@
+Posts:
+  AttributeDefinitions:
+    - AttributeName: post_id
+      AttributeType: S
+  KeySchema:
+    - AttributeName: post_id
+      KeyType: HASH
+  ProvisionedThroughput:
+    ReadCapacityUnits: 1
+    WriteCapacityUnits: 1
+

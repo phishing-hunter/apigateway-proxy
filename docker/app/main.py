@@ -9,6 +9,7 @@ LAMBDA_URL = os.environ.get("LAMBDA_URL", "http://lambda:8080")
 TEST_SUB = os.environ.get("TEST_SUB", "test_user")
 TEST_NAME = os.environ.get("TEST_NAME", "test")
 
+
 def parse_jwt(jwt):
     payload = {"sub": TEST_SUB, "name": TEST_NAME}
     try:
@@ -28,9 +29,7 @@ class BaseHttpServer(BaseHTTPRequestHandler):
                     "principalId": payload["sub"],
                 }
             },
-            "headers": {
-                "Authorization": "test_token"
-            },
+            "headers": {"Authorization": "test_token"},
             "resource": self.path,
             "httpMethod": "GET",
             "body": "",
@@ -62,9 +61,7 @@ class BaseHttpServer(BaseHTTPRequestHandler):
                     "principalId": payload["sub"],
                 }
             },
-            "headers": {
-                "Authorization": "test_token"
-            },
+            "headers": {"Authorization": "test_token"},
             "resource": self.path,
             "httpMethod": "POST",
             "body": requestBody,

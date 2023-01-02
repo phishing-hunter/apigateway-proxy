@@ -7,7 +7,7 @@ services:
     ports:
       - "9000:8080"
     volumes:
-      - ./tables.yaml:/config/tables.yaml:ro
+      - ./example/tables.yaml:/config/tables.yaml:ro
     depends_on:
       - lambda
     restart: always
@@ -18,6 +18,8 @@ services:
       - dynamodb
     restart: always
     environment:
+      - AWS_ACCESS_KEY_ID=xxxxxxxxxx
+      - AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxx
       - DYNAMODB_ENDPOINT_URL=http://dynamodb:8000
       - DEBUG=1
 
