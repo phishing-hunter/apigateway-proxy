@@ -15,7 +15,7 @@ def handler(event=None, context=None):
     if path == "/hello" and method == "GET":
         return {
             "statusCode": 200,
-            "body": "hello",
+            "body": f"hello {user_id}",
         }
 
     if path == "/echo" and method == "POST":
