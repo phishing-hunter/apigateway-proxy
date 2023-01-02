@@ -86,6 +86,12 @@ class BaseHttpServer(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body.encode())
 
+    def do_PUT(self):
+        self.do_POST(self)
+
+    def do_DELETE(self):
+        self.do_POST(self)
+
     def do_OPTIONS(self):
         self.send_response(200, "ok")
         self.send_header("content-length", 0)
