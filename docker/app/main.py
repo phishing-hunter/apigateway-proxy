@@ -1,12 +1,16 @@
-from http.server import HTTPServer
-from http.server import BaseHTTPRequestHandler
-import requests
+import os
 import json
 import base64
+import requests
+from http.server import HTTPServer
+from http.server import BaseHTTPRequestHandler
 
+LAMBDA_URL = os.environ.get("LAMBDA_URL", "http://lambda:8080")
+TEST_SUB = os.environ.get("TEST_SUB", "test_user")
+TEST_NAME = os.environ.get("TEST_NAME", "test")
 
 def parse_jwt(jwt):
-    payload = {"sub": "test_user", "name": "hoge"}
+    payload = {"sub": TEST_SUB, "name": TEST_NAME}
     try:
         tmp = jwt.split(".")
         payload = json.loads(base64.b64decode(tmp[1]).decode())
@@ -32,7 +36,7 @@ class BaseHttpServer(BaseHTTPRequestHandler):
             "body": "",
         }
         r = requests.post(
-            "http://lambda:8080/2015-03-31/functions/function/invocations",
+            f"{LAMBDA_HOST}/2015-03-31/functions/function/invocations",
             data=json.dumps(post_json),
         )
         resp = r.json()
