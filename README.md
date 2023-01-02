@@ -1,6 +1,6 @@
 # API Gateway Proxy
 
-API Gateway + Lambda + DynamoDBの環境をテストするための環境
+API Gateway + Lambda + DynamoDBの環境をテストするためのモックAPI
 
 ## Local Tests
 ```bash
