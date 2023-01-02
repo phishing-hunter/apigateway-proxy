@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  apigateway:
+    image: ghcr.io/phishing-hunter/apigateway-proxy:main
+    build: ./docker
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./tables.yaml:/config/tables.yaml:ro
+    depends_on:
+      - lambda
+    restart: always
+
+  lambda:
+    build: ./example
+    depends_on:
+      - dynamodb
+    restart: always
+    environment:
+      - DYNAMODB_ENDPOINT_URL=http://dynamodb:8000
+      - DEBUG=1
+
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    user: root
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+    volumes:
+      - dynamodb-data:/data
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    environment:
+      - DYNAMO_ENDPOINT=dynamodb:8000
+    ports:
+      - 8001:8001
+    depends_on:
+      - dynamodb
+
+volumes:
+  dynamodb-data:

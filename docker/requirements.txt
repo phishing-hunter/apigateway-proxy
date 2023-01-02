@@ -1,3 +1,4 @@
 requests
 awscli
 boto3
+pyyaml

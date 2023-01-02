@@ -36,7 +36,7 @@ class BaseHttpServer(BaseHTTPRequestHandler):
             "body": "",
         }
         r = requests.post(
-            f"{LAMBDA_HOST}/2015-03-31/functions/function/invocations",
+            f"{LAMBDA_URL}/2015-03-31/functions/function/invocations",
             data=json.dumps(post_json),
         )
         resp = r.json()
@@ -70,7 +70,7 @@ class BaseHttpServer(BaseHTTPRequestHandler):
             "body": requestBody,
         }
         r = requests.post(
-            "http://lambda:8080/2015-03-31/functions/function/invocations",
+            f"{LAMBDA_URL}/2015-03-31/functions/function/invocations",
             data=json.dumps(post_json),
         )
         resp = r.json()
